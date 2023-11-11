@@ -1,0 +1,9 @@
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: debug
+spring:
+  data:
+    mongodb:
+#      uri: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_CLUSTER_ENDPOINT}:27017/db?authSource=admin
+      uri: mongodb://root:example@127.0.0.1:27017/db?authSource=admin
+      database: factorial

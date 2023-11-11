@@ -1,8 +1,31 @@
 version: "3.7"
 services:
-  idp:
+  #  idp:
+  #    ports:
+  #      - "9000:9000"
+  #    build:
+  #      context: idp
+  #      dockerfile: Dockerfile
+
+#  metric-server:
+#    environment:
+#      MONGO_USERNAME: "root"
+#      MONGO_PASSWORD: "root"
+#      MONGO_CLUSTER_ENDPOINT: "mongo"
+#    ports:
+#      - "8080:8080"
+#    build:
+#      context: metric-server
+#      dockerfile: Dockerfile
+
+  mongo:
+    image: mongo:latest
+    restart: always
     ports:
-      - "9000:9000"
-    build:
-      context: idp
-      dockerfile: Dockerfile
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
