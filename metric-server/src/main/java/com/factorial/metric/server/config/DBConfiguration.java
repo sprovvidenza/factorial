@@ -1,10 +1,6 @@
 package com.factorial.metric.server.config;
 
 import com.factorial.metric.server.factory.MultitenantMongoClientDatabaseFactory;
-import com.factorial.metric.server.persistence.entity.AggregationMetricEntity;
-import com.factorial.metric.server.persistence.entity.MetricEntity;
-import com.factorial.metric.server.persistence.repository.MetricRepository;
-import com.factorial.metric.server.persistence.repository.MetricRepositoryImpl;
 import com.factorial.metric.server.utils.TenantProvider;
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
@@ -28,12 +24,6 @@ public class DBConfiguration {
     public MongoTemplate mongoTemplate(MongoDatabaseFactory mongoDbFactory, MappingMongoConverter converter) {
         return new MongoTemplate(mongoDbFactory, converter);
     }
-
-    @Bean
-    public MetricRepository<MetricEntity, AggregationMetricEntity> metricRepository(MongoTemplate mongoTemplate) {
-        return new MetricRepositoryImpl(mongoTemplate);
-    }
-
 //    @Bean
     public MongoDatabaseFactory mongoDbFactory(MongoProperties properties, TenantProvider tenantProvider) {
         final ConnectionString connectionString = new ConnectionString(properties.getUri());

@@ -1,3 +1,5 @@
 /idp/target/
 /.idea/
 /metric-server/target/
+/metric-ui/node_modules/
+/metric-ui/.idea/

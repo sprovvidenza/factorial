@@ -1,13 +1,12 @@
 package com.factorial.metric.server.persistence.repository;
 
 import com.factorial.metric.server.persistence.entity.AggregationMetricEntity;
-import org.springframework.data.mapping.model.Property;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface ExRepository extends MongoRepository<AggregationMetricEntity, String> {
+public interface AggMetricRepository extends MongoRepository<AggregationMetricEntity, String> {
 
     @Aggregation(pipeline = {
             "{$project: {date: {$dateToParts: { date:  \"$timestamp\", timezone: \"Europe/Rome\"}}, temp:  1}}",

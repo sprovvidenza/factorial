@@ -1,5 +1,10 @@
 package com.factorial.metric.server.persistence.entity;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
+
 public class AggregationMetricEntityDate {
     private String year, month, day, hour, minute;
 
@@ -41,5 +46,15 @@ public class AggregationMetricEntityDate {
 
     public void setMinute(String minute) {
         this.minute = minute;
+    }
+
+    @Override
+    public String toString() {
+        List<String> times = Stream.of(year, month, day, hour, minute).map(s -> {
+            if (Objects.isNull(s)) return "00";
+            if (s.length() == 1) return String.format("0%s", s);
+            return s;
+        }).toList();
+        return String.format("%s-%s-%s %s:%s", times.toArray());
     }
 }
