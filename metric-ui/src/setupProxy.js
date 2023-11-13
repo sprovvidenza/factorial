@@ -5,14 +5,23 @@ module.exports = function(app) {
         '/.well-known/openid-configuration',
         createProxyMiddleware({
             target: 'http://localhost:9000',
-            changeOrigin: true,
+            changeOrigin: true
         })
     );
     app.use(
-        '/oauth2',
+        '/oauth2/token',
         createProxyMiddleware({
             target: 'http://localhost:9000',
             changeOrigin: true,
+            followRedirects: true
+        })
+    );
+    app.use(
+        '/userinfo',
+        createProxyMiddleware({
+            target: 'http://localhost:9000',
+            changeOrigin: true,
+            followRedirects: true
         })
     );
     app.use(

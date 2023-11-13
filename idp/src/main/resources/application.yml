@@ -21,7 +21,7 @@ spring:
               redirect-uris:
                 - "http://127.0.0.1:8080/login/oauth2/code/oidc-client"
                 - "https://oauth.pstmn.io/v1/callback"
-                - "http://localhost:3000/"
+                - "http://localhost:3000"
               post-logout-redirect-uris:
                 - "http://127.0.0.1:8080/"
               scopes:

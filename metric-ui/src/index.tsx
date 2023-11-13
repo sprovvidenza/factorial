@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {AuthProvider} from 'oidc-react';
+import {AuthProvider} from "oidc-react";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <AuthProvider authority="http://localhost:3000" clientId="oidc-client" redirectUri="http://localhost:3000/">
+        <AuthProvider authority="http://localhost:3000" clientId="oidc-client" redirectUri="http://localhost:3000" loadUserInfo={false}>
             <App/>
         </AuthProvider>
     </React.StrictMode>
