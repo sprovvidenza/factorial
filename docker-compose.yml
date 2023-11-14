@@ -29,3 +29,4 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone
       - /etc/localtime:/etc/localtime
+      - ./metric-server/init.js:/docker-entrypoint-initdb.d/init.js:ro
