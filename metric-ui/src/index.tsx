@@ -4,16 +4,29 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {AuthProvider} from "oidc-react";
+import InputMetric from "./InputMetric";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
+const oidcConfig = {
+    onSignIn: async (user: any) => {
+        console.log(user);
+        window.location.hash = '';
+    },
+    authority: 'http://localhost:3000',
+    clientId: 'oidc-client',
+    redirectUri: 'http://localhost:3000',
+    loadUserInfo: false,
+    automaticSilentRenew: false,
+}
 root.render(
-    <React.StrictMode>
-        <AuthProvider authority="http://localhost:3000" clientId="oidc-client" redirectUri="http://localhost:3000" loadUserInfo={false}>
+    <React.Fragment>
+        <AuthProvider {...oidcConfig}>
             <App/>
+            <InputMetric></InputMetric>
         </AuthProvider>
-    </React.StrictMode>
+    </React.Fragment>
 );
 
 // If you want to start measuring performance in your app, pass a function

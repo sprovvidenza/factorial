@@ -1,6 +1,19 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
+ .menu{
+   margin-left: 40px;
+   margin-bottom: 20px;
+   margin-top: 20px;
+ }
+ .refresh{
+   padding: 15px;
+ }
+
+ .insertData{
+   margin-top: 30px;
+   margin-left: 30px;
+ }
 
 .App-logo {
   height: 40vmin;

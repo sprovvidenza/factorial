@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import {LineChart} from "@mui/x-charts";
-import FormControl from '@mui/material/FormControl';
-import {InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
-
+import {Button, ToggleButton, ToggleButtonGroup} from "@mui/material";
+import {useAuth} from "oidc-react";
 
 
 function App() {
@@ -11,28 +10,38 @@ function App() {
     const [series, setSeries] = useState([]);
     const [xaxis, setXaxis] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
+    const auth = useAuth()
 
 
     const fetchMetrics = (t: string | undefined) => {
         const url = `http://localhost:3000/metric?timeUnit=${t}`
         console.log(url)
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                setIsLoaded(true);
-                setSeries(data.series);
-                setXaxis(data.xAxis)
-                console.log(data)
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
+        auth.userManager.getUser().then(value => {
+                if (value) {
+                    fetch(url, {headers: {'Authorization': 'Bearer ' + value?.id_token}})
+                        .then((response) => response.json())
+                        .then((data) => {
+                            setSeries(data.series);
+                            setXaxis(data.xAxis)
+                            if (data.series.length > 0)
+                                setIsLoaded(true);
+                            console.log(data.series.length)
+                        })
+                        .catch((err) => {
+                            console.log(err.message);
+                        })
+                }
+            }
+        )
+
     }
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setTime(event.target.value as string);
-        console.log(event.target.value as string)
-        fetchMetrics(event.target.value)
+    const handleChange = (event: React.MouseEvent<HTMLElement>, newTime: string) => {
+        if (newTime != null) {
+            setTime(newTime);
+            console.log(newTime)
+            fetchMetrics(newTime)
+        }
 
     };
 
@@ -40,37 +49,41 @@ function App() {
         fetchMetrics(time);
     }, []);
 
+    function refresh() {
+        fetchMetrics(time);
+    }
+
     if (isLoaded) {
         return (
             <div className="App">
-                <FormControl sx={{m: 1, width: 100}}>
-                    <InputLabel id="demo-simple-select-label">Time</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
+                <div className="menu">
+                    <ToggleButtonGroup
+                        color="primary"
                         value={time}
-                        label="Time"
+                        exclusive
                         onChange={handleChange}
-                        defaultValue={'DAYS'}
+                        aria-label="Platform"
                     >
-                        <MenuItem value={'MINUTES'}>Minutes</MenuItem>
-                        <MenuItem value={'HOURS'}>Hours</MenuItem>
-                        <MenuItem value={'DAYS'}>Days</MenuItem>
-                    </Select>
-                </FormControl>
+                        <ToggleButton value="MINUTES">Minutes</ToggleButton>
+                        <ToggleButton value="HOURS">Hours</ToggleButton>
+                        <ToggleButton value="DAYS">Days</ToggleButton>
+                        <Button variant="contained" onClick={() => refresh()}>Refresh</Button>
+                    </ToggleButtonGroup>
+                </div>
                 <LineChart
+                    margin={{left: 60, top: 10, right: 20}}
                     xAxis={[{data: xaxis, scaleType: 'point', label: time}]}
                     series={[
                         {
-                            data: series, curve: "natural", area: false
+                            data: series, curve: "natural", area: true
                         },
                     ]}
                     width={800}
                     height={400}
-                />
 
+                />
             </div>
-        );
+        )
     } else return (<div className="App"></div>)
 
 }
