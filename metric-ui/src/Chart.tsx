@@ -14,8 +14,8 @@ function Chart() {
     const metricContext = useContext(MetricContext);
 
 
-    const fetchMetrics = (t: string | undefined) => {
-        const url = `http://localhost:3000/metric?timeUnit=${t}`
+    const fetchMetrics = (time: string | undefined, tenant: string) => {
+        const url = `http://localhost:3000/metric?timeUnit=${time}&tenant=${tenant}`
         console.log(url)
         console.log("Tenant is "+ metricContext.tenant)
         auth.userManager.getUser()
@@ -43,18 +43,18 @@ function Chart() {
     const handleChange = (event: React.MouseEvent<HTMLElement>, newTime: string) => {
         if (newTime != null) {
             setTime(newTime);
-            fetchMetrics(newTime)
+            fetchMetrics(newTime, metricContext.tenant)
         }
 
     };
 
     useEffect(() => {
         console.log("Use Effect")
-        fetchMetrics(time)
+        fetchMetrics(time, metricContext.tenant)
     }, []);
 
     function refresh() {
-        fetchMetrics(time);
+        fetchMetrics(time, metricContext.tenant);
     }
 
 

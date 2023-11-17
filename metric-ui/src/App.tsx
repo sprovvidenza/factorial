@@ -1,8 +1,8 @@
-import React, {MouseEventHandler, useState} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Chart from "./Chart";
 import {AuthProvider} from "oidc-react";
-import {AppBar, Avatar, Button, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
+import {AppBar, Avatar, Button, Menu, MenuItem, Toolbar} from "@mui/material";
 import {MetricContext} from "./Context";
 
 
@@ -19,16 +19,16 @@ function App() {
         automaticSilentRenew: false,
     }
     const [metricContext, setMetricContext] = useState({tenant: 'Dev'});
-
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
+
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
+    const open = Boolean(anchorEl);
     const handleClose = (event: any) => {
         setAnchorEl(null);
         console.log(event.target.innerText)
-        setMetricContext(event.target.innerText)
+        setMetricContext({tenant: event.target.innerText})
     };
 
     return (
@@ -51,9 +51,7 @@ function App() {
                         anchorEl={anchorEl}
                         open={open}
                         onClose={handleClose}
-                        MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                        }}
+
                     >
                         <MenuItem value="Tenant1" onClick={handleClose}>Dev</MenuItem>
                         <MenuItem value="Tenant2" onClick={handleClose}>Uat</MenuItem>
