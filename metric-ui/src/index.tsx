@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {AuthProvider} from "oidc-react";
-import InputMetric from "./InputMetric";
+import {Switch} from "@mui/material";
+
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -12,7 +13,6 @@ const root = ReactDOM.createRoot(
 const oidcConfig = {
     onSignIn: async (user: any) => {
         console.log(user);
-        window.location.hash = '';
     },
     authority: 'http://localhost:3000',
     clientId: 'oidc-client',
@@ -22,10 +22,9 @@ const oidcConfig = {
 }
 root.render(
     <React.Fragment>
-        <AuthProvider {...oidcConfig}>
+        <div className="app">
             <App/>
-            <InputMetric></InputMetric>
-        </AuthProvider>
+        </div>
     </React.Fragment>
 );
 

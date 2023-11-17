@@ -1,90 +1,75 @@
-import React, {useEffect, useState} from 'react';
+import React, {MouseEventHandler, useState} from 'react';
 import './App.css';
-import {LineChart} from "@mui/x-charts";
-import {Button, ToggleButton, ToggleButtonGroup} from "@mui/material";
-import {useAuth} from "oidc-react";
+import Chart from "./Chart";
+import {AuthProvider} from "oidc-react";
+import {AppBar, Avatar, Button, Menu, MenuItem, Toolbar, Typography} from "@mui/material";
+import {MetricContext} from "./Context";
 
 
 function App() {
-    const [time, setTime] = useState('DAYS');
-    const [series, setSeries] = useState([]);
-    const [xaxis, setXaxis] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const auth = useAuth()
-
-
-    const fetchMetrics = (t: string | undefined) => {
-        const url = `http://localhost:3000/metric?timeUnit=${t}`
-        console.log(url)
-        auth.userManager.getUser().then(value => {
-                if (value) {
-                    fetch(url, {headers: {'Authorization': 'Bearer ' + value?.id_token}})
-                        .then((response) => response.json())
-                        .then((data) => {
-                            setSeries(data.series);
-                            setXaxis(data.xAxis)
-                            if (data.series.length > 0)
-                                setIsLoaded(true);
-                            console.log(data.series.length)
-                        })
-                        .catch((err) => {
-                            console.log(err.message);
-                        })
-                }
-            }
-        )
-
+    const oidcConfig = {
+        onSignIn: async (user: any) => {
+            console.log(user);
+            window.location.href = "http://localhost:3000";
+        },
+        authority: 'http://localhost:3000',
+        clientId: 'oidc-client',
+        redirectUri: 'http://localhost:3000',
+        loadUserInfo: false,
+        automaticSilentRenew: false,
     }
+    const [metricContext, setMetricContext] = useState({tenant: 'Dev'});
 
-    const handleChange = (event: React.MouseEvent<HTMLElement>, newTime: string) => {
-        if (newTime != null) {
-            setTime(newTime);
-            console.log(newTime)
-            fetchMetrics(newTime)
-        }
-
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = (event: any) => {
+        setAnchorEl(null);
+        console.log(event.target.innerText)
+        setMetricContext(event.target.innerText)
     };
 
-    useEffect(() => {
-        fetchMetrics(time);
-    }, []);
+    return (
+        <AuthProvider {...oidcConfig}>
+            <AppBar position={"static"}>
+                <Toolbar>
+                    <Avatar className="logo"
+                            src="https://play-lh.googleusercontent.com/PBsR6LdntQHFtg-NLxWn1X5-YKudfr9KBDaYr7VmzgXdeD8GydecNuX7xt3tAMxFrZg=w240-h480-rw"></Avatar>
 
-    function refresh() {
-        fetchMetrics(time);
-    }
-
-    if (isLoaded) {
-        return (
-            <div className="App">
-                <div className="menu">
-                    <ToggleButtonGroup
-                        color="primary"
-                        value={time}
-                        exclusive
-                        onChange={handleChange}
-                        aria-label="Platform"
+                    <Button
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}
+                        color={"inherit"}
                     >
-                        <ToggleButton value="MINUTES">Minutes</ToggleButton>
-                        <ToggleButton value="HOURS">Hours</ToggleButton>
-                        <ToggleButton value="DAYS">Days</ToggleButton>
-                        <Button variant="contained" onClick={() => refresh()}>Refresh</Button>
-                    </ToggleButtonGroup>
-                </div>
-                <LineChart
-                    margin={{left: 60, top: 10, right: 20}}
-                    xAxis={[{data: xaxis, scaleType: 'point', label: time}]}
-                    series={[
-                        {
-                            data: series, curve: "natural", area: true
-                        },
-                    ]}
-                    width={800}
-                    height={400}
+                        {metricContext.tenant}
+                    </Button>
+                    <Menu
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                        }}
+                    >
+                        <MenuItem value="Tenant1" onClick={handleClose}>Dev</MenuItem>
+                        <MenuItem value="Tenant2" onClick={handleClose}>Uat</MenuItem>
+                        <MenuItem value="Tenant3" onClick={handleClose}>Prod</MenuItem>
+                    </Menu>
 
-                />
-            </div>
-        )
-    } else return (<div className="App"></div>)
+                </Toolbar>
+
+            </AppBar>
+
+            <MetricContext.Provider value={metricContext}>
+                <Chart/>
+            </MetricContext.Provider>
+        </AuthProvider>
+    )
+
 
 }
 

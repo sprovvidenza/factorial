@@ -28,6 +28,7 @@ export default function InputMetric() {
             .then((response) => console.log(response))
             .then((data) => {
                 console.log(data)
+
             })
             .catch((err) => {
                 console.log(err.message);

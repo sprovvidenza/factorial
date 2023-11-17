@@ -8,11 +8,11 @@ db.createCollection(
         },
     });
 
-// db.weather.insertMany( [
-//     {
-//         "metadata": { "sensorId": 5578, "type": "temperature" },
-//         "timestamp": ISODate("2023-05-18T00:01:00.000Z"),
-//         "temp": 12
-//     }
-// ] )
+db.weather.insertMany( [
+    {
+        "metadata": { "sensorId": 5578, "type": "temperature" },
+        "timestamp": ISODate("2023-11-19T00:01:00.000Z"),
+        "value": 12
+    }
+] )
 
