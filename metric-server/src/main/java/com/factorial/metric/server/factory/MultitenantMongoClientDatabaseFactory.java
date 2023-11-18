@@ -19,6 +19,6 @@ public class MultitenantMongoClientDatabaseFactory extends SimpleMongoClientData
 
     @Override
     public MongoDatabase getMongoDatabase() throws DataAccessException {
-        return getMongoDatabase(tenantProvider.get());
+        return getMongoDatabase(tenantProvider.get().toLowerCase());
     }
 }

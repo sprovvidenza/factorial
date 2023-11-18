@@ -4,14 +4,14 @@ module.exports = function(app) {
     app.use(
         '/.well-known/openid-configuration',
         createProxyMiddleware({
-            target: 'http://localhost:9000',
+            target: process.env.IDP_HOST,
             changeOrigin: true
         })
     );
     app.use(
         '/oauth2/token',
         createProxyMiddleware({
-            target: 'http://localhost:9000',
+            target: process.env.IDP_HOST,
             changeOrigin: true,
             followRedirects: true
         })
@@ -19,7 +19,7 @@ module.exports = function(app) {
     app.use(
         '/userinfo',
         createProxyMiddleware({
-            target: 'http://localhost:9000',
+            target: process.env.IDP_HOST,
             changeOrigin: true,
             followRedirects: true
         })
@@ -27,7 +27,7 @@ module.exports = function(app) {
     app.use(
         '/metric',
         createProxyMiddleware({
-            target: 'http://localhost:8080',
+            target: process.env.METRIC_SERVER_HOST,
             changeOrigin: true,
         })
     )

@@ -51,10 +51,10 @@ function Chart() {
     useEffect(() => {
         console.log("Use Effect")
         fetchMetrics(time, metricContext.tenant)
-    }, [metricContext]);
+    }, [metricContext.tenant, time]);
 
-    function refresh() {
-        fetchMetrics(time, metricContext.tenant);
+    const refresh = (tenant: string) => {
+        fetchMetrics(time, tenant);
     }
 
 
@@ -73,7 +73,7 @@ function Chart() {
                         <ToggleButton value="HOURS">Hours</ToggleButton>
                         <ToggleButton value="DAYS">Days</ToggleButton>
 
-                        <Button className="refresh" variant="contained" onClick={() => refresh()}>Refresh</Button>
+                        <Button className="refresh" variant="contained" onClick={() => refresh(metricContext.tenant)}>Refresh</Button>
                     </ToggleButtonGroup>
                 </div>
 

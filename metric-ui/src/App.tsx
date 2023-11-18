@@ -12,9 +12,9 @@ function App() {
             console.log(user);
             window.location.href = "http://localhost:3000";
         },
-        authority: 'http://localhost:3000',
+        authority: 'http://metric-ui:3000',
         clientId: 'oidc-client',
-        redirectUri: 'http://localhost:3000',
+        redirectUri: 'http://metric-ui:3000',
         loadUserInfo: false,
         automaticSilentRenew: false,
     }
