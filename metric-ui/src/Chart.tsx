@@ -51,7 +51,7 @@ function Chart() {
     useEffect(() => {
         console.log("Use Effect")
         fetchMetrics(time, metricContext.tenant)
-    }, []);
+    }, [metricContext]);
 
     function refresh() {
         fetchMetrics(time, metricContext.tenant);

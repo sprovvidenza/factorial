@@ -53,9 +53,9 @@ function App() {
                         onClose={handleClose}
 
                     >
-                        <MenuItem value="Tenant1" onClick={handleClose}>Dev</MenuItem>
-                        <MenuItem value="Tenant2" onClick={handleClose}>Uat</MenuItem>
-                        <MenuItem value="Tenant3" onClick={handleClose}>Prod</MenuItem>
+                        <MenuItem onClick={handleClose}>Dev</MenuItem>
+                        <MenuItem onClick={handleClose}>Uat</MenuItem>
+                        <MenuItem onClick={handleClose}>Prod</MenuItem>
                     </Menu>
 
                 </Toolbar>

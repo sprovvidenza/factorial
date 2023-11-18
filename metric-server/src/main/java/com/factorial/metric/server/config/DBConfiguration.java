@@ -24,7 +24,7 @@ public class DBConfiguration {
     public MongoTemplate mongoTemplate(MongoDatabaseFactory mongoDbFactory, MappingMongoConverter converter) {
         return new MongoTemplate(mongoDbFactory, converter);
     }
-//    @Bean
+    @Bean
     public MongoDatabaseFactory mongoDbFactory(MongoProperties properties, TenantProvider tenantProvider) {
         final ConnectionString connectionString = new ConnectionString(properties.getUri());
         return new MultitenantMongoClientDatabaseFactory(mongoClient(connectionString), tenantProvider);
