@@ -19,7 +19,9 @@ To run the application is necessary doing:
 
 > docker-compose up --build
 
-The application will be available on http://localhost:3000
+The application will be available on http://localhost:3000 and only for test you can use this credentials:
+- username: factorial-admin
+- password: password
 
 ## Tech
 
