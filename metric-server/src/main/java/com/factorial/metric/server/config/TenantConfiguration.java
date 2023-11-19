@@ -15,8 +15,6 @@ import static java.util.Optional.ofNullable;
 public class TenantConfiguration {
 
     private static final String TENANT = "tenant";
-    private static final String STATE = "state";
-    private static final String DELIMITER = ":";
     private static final String ERROR_MESSAGE = "Tenant is not present as query string %s in request %s.";
 
 
