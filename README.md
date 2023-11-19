@@ -1,6 +1,6 @@
 # Welcome to Metric Dashboard!
 
-This is a dashboard where is possible to visualize and analyze metrics.
+This is a dashboard where users can add, see and analyze metrics.
 
 
 # Application
@@ -9,9 +9,9 @@ This is a dashboard where is possible to visualize and analyze metrics.
 
 ## Setup
 
-To run the application is necessary doing:
-- [installing Docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/) if they are not present in your enviromen
-- add on your hosts file this section
+To run the application it is necessary to:
+- [installing Docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/) if they are not present in your environment
+- add in your hosts file this section
 
 > 127.0.0.1		idp
 
@@ -19,16 +19,16 @@ To run the application is necessary doing:
 
 > docker-compose up --build
 
-The application will be available on http://localhost:3000 and only for test you can use this credentials:
+The application will be available on http://localhost:3000 and only for test pourpose, you can use this credential:
 - username: factorial-admin
 - password: password
 
 ## Technologies
 
-To made this application have been used this technologies:
+The following technologies have been used to make this application:
 
 - [Spring Authorization Server](https://github.com/spring-projects/spring-authorization-server) to create the IDP
-- [Spring Boot](https://spring.io/projects/spring-boot) to made the metric server
+- [Spring Boot](https://spring.io/projects/spring-boot) to make the metric server
 - [MongoDb and own time series collection](https://www.mongodb.com/docs/manual/core/timeseries-collections/) to persist the metrics.
 - [React](https://react.dev/learn) and [Material UI](https://mui.com/material-ui/getting-started/) for the frontend layer
 
