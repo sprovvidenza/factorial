@@ -23,7 +23,7 @@ The application will be available on http://localhost:3000 and only for test you
 - username: factorial-admin
 - password: password
 
-## Tech
+## Technologies
 
 To made this application have been used this technologies:
 
