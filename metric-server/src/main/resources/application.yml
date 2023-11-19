@@ -6,9 +6,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:9000
+          issuer-uri: http://idp:9000
   data:
     mongodb:
-#      uri: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_CLUSTER_ENDPOINT}:27017/db?authSource=admin
-      uri: mongodb://root:example@127.0.0.1:27017/db?authSource=admin
+      uri: mongodb://root:example@mongo:27017/db?authSource=admin
       database: factorial

@@ -23,9 +23,6 @@ services:
       - mongo
 
   metric-ui:
-    environment:
-      ID_HOST: "http://idp:9000"
-      METRIC_SERVE_HOST: "http://metric-server:8080"
     build:
       context: metric-ui
       dockerfile: Dockerfile

@@ -12,11 +12,11 @@ function App() {
             console.log(user);
             window.location.href = "http://localhost:3000";
         },
-        authority: 'http://metric-ui:3000',
+        authority: 'http://localhost:3000',
         clientId: 'oidc-client',
-        redirectUri: 'http://metric-ui:3000',
+        redirectUri: 'http://localhost:3000',
         loadUserInfo: false,
-        automaticSilentRenew: false,
+        automaticSilentRenew: false
     }
     const [metricContext, setMetricContext] = useState({tenant: 'Dev'});
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

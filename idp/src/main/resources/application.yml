@@ -28,3 +28,4 @@ spring:
                 - "openid"
                 - "profile"
             require-authorization-consent: true
+        issuer: http://localhost:9000
