@@ -10,7 +10,7 @@ This is a dashboard where is possible to visualize and analyze metrics.
 ## Setup
 
 To run the application is necessary doing:
-
+- [installing Docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/) if they are not present in your enviromen
 - add on your file host this section
 
 > 127.0.0.1		idp
