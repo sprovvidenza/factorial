@@ -4,9 +4,8 @@ This is a dashboard where is possible to visualize and analyze metrics.
 
 
 # Application
-Application image.
-In this application you can select metric by tenant(in this case the tenant are dev, uat and prod) and also you can filter by minutes, hours and days.
 
+![app](app.png)
 
 ## Setup
 
@@ -49,12 +48,5 @@ Metric Server->>Metric Server: validate token
 Metric Server->>App: Return the metric data requested
 ```
 
-And this will produce a flow chart:
 
-```mermaid
-graph LR
-A[Square Rect] -- Link text --> B((Circle))
-A --> C(Round Rect)
-B --> D{Rhombus}
-C --> D
-```
+![metric diagram](metric-diagram.png)
